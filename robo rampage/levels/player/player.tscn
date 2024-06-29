@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://cd1a2sov4i08u"]
+
+[ext_resource type="Script" path="res://levels/player/player.gd" id="1_susc2"]
+[ext_resource type="Script" path="res://levels/player/smmothcamera.gd" id="2_kfei4"]
+[ext_resource type="PackedScene" uid="uid://cvu2r6oog5vdq" path="res://weapons/smg.tscn" id="3_0f4qo"]
+[ext_resource type="Script" path="res://levels/player/crossHair.gd" id="3_ha8vk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xee1o"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o6niv"]
+
+[node name="player" type="CharacterBody3D" groups=["player"]]
+script = ExtResource("1_susc2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_xee1o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_o6niv")
+
+[node name="cameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33, 0)
+
+[node name="smmothcamera" type="Camera3D" parent="cameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.275697, -0.096765)
+top_level = true
+script = ExtResource("2_kfei4")
+
+[node name="SMG" parent="cameraPivot/smmothcamera" instance=ExtResource("3_0f4qo")]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="crossHair" type="Control" parent="CenterContainer"]
+layout_mode = 2
+script = ExtResource("3_ha8vk")
